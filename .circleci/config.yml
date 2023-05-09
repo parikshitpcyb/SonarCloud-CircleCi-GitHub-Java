@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  secrets-scanner-orb: atul/secrets-scanner-orb@0.0.2
+  secrets-scanner-orb: atul/secrets-scanner-orb@dev:alpha
 
 jobs:
   sonarscan_build:
