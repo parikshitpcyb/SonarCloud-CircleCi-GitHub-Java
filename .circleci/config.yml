@@ -13,9 +13,19 @@ jobs:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar -Dsonar.projectKey=parikshitpcyb_SonarCloud-CircleCi-GitHub-Java -Dsonar.qualitygate.wait=true -Dsonar.analysis.timeout=300
 
+  secrets_scan:
+      docker:
+          - image: circleci/python:latest
+      working_directory: ~/repo
+      steps:
+          - checkout
+          - run: sudo pip install trufflehog
+          - run: trufflehog --max_depth 1 ~/repo
+
+
 workflows:
   sonarcloud_circleci_scan:
     jobs:
       - sonarscan_build:
           context: SonarCloud
-      - trufflehog_orb/scan
+      - secrets_scan
