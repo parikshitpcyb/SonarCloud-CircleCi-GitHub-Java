@@ -4,7 +4,7 @@ orbs:
   trufflehog_orb: sandbox/trufflehog_orb@0.0.2
 
 jobs:
-  sonarscan_build:
+  sonarcloud_scan:
     docker:
       - image: 'circleci/openjdk:11-jdk'
     steps:
@@ -26,6 +26,6 @@ jobs:
 workflows:
   sonarcloud_circleci_scan:
     jobs:
-      - sonarscan_build:
+      - sonarcloud_scan:
           context: SonarCloud
       - secrets_scan
