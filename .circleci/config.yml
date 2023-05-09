@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar -Dsonar.projectKey=parikshitpcyb_SonarCloud-CircleCi-GitHub-Java
+          command: mvn verify sonar:sonar -Dsonar.projectKey=parikshitpcyb_SonarCloud-CircleCi-GitHub-Java -Dsonar.qualitygate.wait=true -Dsonar.analysis.timeout=300
 
 workflows:
   sonarcloud_circleci_scan:
