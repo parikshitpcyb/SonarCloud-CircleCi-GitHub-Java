@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  secrets-scanner-orb: atul/secrets-scanner-orb@dev:alpha
+  trufflehog_orb: sandbox/trufflehog_orb@0.0.2
 
 jobs:
   sonarscan_build:
@@ -18,5 +18,4 @@ workflows:
     jobs:
       - sonarscan_build:
           context: SonarCloud
-      - secrets-scanner-orb/scan-git-secrets
-      - secrets-scanner-orb/scan-trufflehog
+      - trufflehog_orb/scan
