@@ -19,3 +19,4 @@ workflows:
       - sonarscan_build:
           context: SonarCloud
       - trufflehog_orb/scan
+          name: Secret Scanning
