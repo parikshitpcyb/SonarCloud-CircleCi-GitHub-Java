@@ -1,7 +1,10 @@
 version: 2.1
 
+orbs:
+  secrets-scanner-orb: atul/secrets-scanner-orb@0.0.2
+
 jobs:
-  build:
+  sonarscan_build:
     docker:
       - image: 'circleci/openjdk:11-jdk'
     steps:
@@ -11,8 +14,9 @@ jobs:
           command: mvn verify sonar:sonar -Dsonar.projectKey=parikshitpcyb_SonarCloud-CircleCi-GitHub-Java
 
 workflows:
-  main:
+  sonarcloud_circleci_scan:
     jobs:
-      - build:
+      - sonarscan_build:
           context: SonarCloud
-          #Test if these get through
+      - secrets-scanner-orb/scan-git-secrets
+      - secrets-scanner-orb/scan-trufflehog
