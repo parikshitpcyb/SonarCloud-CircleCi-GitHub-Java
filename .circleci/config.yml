@@ -20,6 +20,7 @@ jobs:
       steps:
           - checkout
           - run: sudo python3 --version
+          - run: sudo apt-get install python3-pip
           - run: sudo pip install trufflehog
           - run: trufflehog --max_depth 1 ~/repo
 
