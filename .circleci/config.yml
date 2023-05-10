@@ -1,10 +1,7 @@
 version: 2.1
 
-orbs:
-  trufflehog_orb: sandbox/trufflehog_orb@0.0.2
-
 jobs:
-  sonarcloud_scan:
+  security_scan:
     docker:
       - image: 'cimg/openjdk:11.0'
     working_directory: ~/repo
@@ -14,7 +11,6 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt install python3.10 python3-pip
-            #sudo apt-get install -y python python-pip
             sudo pip3 install GitPython
             sudo pip3 install trufflehog
       - checkout
@@ -27,8 +23,7 @@ jobs:
 
 
 workflows:
-  sonarcloud_circleci_scan:
+  sonarcloud_secrets_scan:
     jobs:
-      - sonarcloud_scan:
+      - security_scan:
           context: SonarCloud
-      #- secrets_scan
