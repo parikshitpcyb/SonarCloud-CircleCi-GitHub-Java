@@ -10,16 +10,18 @@ jobs:
     working_directory: ~/repo
     steps:
       - run:
-          name: Install Python and Trufflehog
+          name: Install Python, Pip and Trufflehog
           command: |
             sudo apt-get update
-            sudo apt-get install -y python
+            sudo apt-get install -y python python-pip
             sudo pip install trufflehog
       - checkout
       - run:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar -Dsonar.projectKey=parikshitpcyb_SonarCloud-CircleCi-GitHub-Java -Dsonar.qualitygate.wait=true -Dsonar.analysis.timeout=300
-      - run: trufflehog --max_depth 1 ~/repo
+      - run: 
+          name: Secrets Scan - TruffleHog
+          command: trufflehog --max_depth 1 ~/repo
 
 workflows:
   sonarcloud_circleci_scan:
