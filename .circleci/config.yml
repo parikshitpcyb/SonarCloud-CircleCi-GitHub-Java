@@ -13,7 +13,8 @@ jobs:
           name: Install Python, Pip and Trufflehog
           command: |
             sudo apt-get update
-            sudo apt-get install -y python python-pip GitPython==3.1.14
+            sudo apt-get install -y python python-pip
+            sudo pip install GitPython
             sudo pip install trufflehog
       - checkout
       - run:
