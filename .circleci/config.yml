@@ -14,7 +14,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y python python-pip
-            sudo pip install GitPython
+            sudo pip install GitPython==3.0.6
             sudo pip install trufflehog
       - checkout
       - run:
