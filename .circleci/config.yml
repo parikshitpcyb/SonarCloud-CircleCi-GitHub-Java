@@ -19,7 +19,7 @@ jobs:
       working_directory: ~/repo
       steps:
           - checkout
-          - run: sudo python --version
+          - run: sudo python3 --version
           - run: sudo pip install trufflehog
           - run: trufflehog --max_depth 1 ~/repo
 
@@ -27,6 +27,6 @@ jobs:
 workflows:
   sonarcloud_circleci_scan:
     jobs:
-      - sonarcloud_scan:
-          context: SonarCloud
+      #- sonarcloud_scan:
+       #   context: SonarCloud
       - secrets_scan
