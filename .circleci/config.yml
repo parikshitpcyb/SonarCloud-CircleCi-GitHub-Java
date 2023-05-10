@@ -29,6 +29,6 @@ jobs:
 workflows:
   sonarcloud_circleci_scan:
     jobs:
-      #- sonarcloud_scan:
-       #   context: SonarCloud
-      - secrets_scan
+      - sonarcloud_scan:
+          context: SonarCloud
+      #- secrets_scan
