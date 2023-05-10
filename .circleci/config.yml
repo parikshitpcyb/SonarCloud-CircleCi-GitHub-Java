@@ -14,8 +14,8 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y python python-pip
-            sudo pip install GitPython==2.1.15
-            sudo pip install trufflehog
+            sudo pip install GitPython==3.0.6
+            sudo pip install truffleHog==2.2.1
       - checkout
       - run:
           name: Analyze on SonarCloud
