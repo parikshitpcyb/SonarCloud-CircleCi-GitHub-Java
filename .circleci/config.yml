@@ -1,29 +1,20 @@
 version: 2.1
 
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.1.1
+  trufflehog: sandbox/trufflehog_orb@0.0.2
+
 jobs:
-  security_scan:
+  sonarcloud_scan:
     docker:
       - image: 'cimg/openjdk:11.0'
-    working_directory: ~/repo
     steps:
-      - run:
-          name: Install Python, Pip and Trufflehog
-          command: |
-            sudo apt-get update
-            sudo apt install python3.10 python3-pip
-            sudo pip3 install GitPython
-            sudo pip3 install trufflehog
       - checkout
-      - run:
-          name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar -Dsonar.projectKey=parikshitpcyb_SonarCloud-CircleCi-GitHub-Java -Dsonar.qualitygate.wait=true -Dsonar.analysis.timeout=300
-      - run: 
-          name: Secrets Scan - TruffleHog
-          command: trufflehog --max_depth 1 ~/repo
-
+      - sonarcloud/scan
 
 workflows:
-  sonarcloud_secrets_scan:
+  security_scans:
     jobs:
-      - security_scan:
+      - sonarcloud_scan:
           context: SonarCloud
+      - trufflehog/scan
