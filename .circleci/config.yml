@@ -6,7 +6,7 @@ orbs:
 jobs:
   security-scan:
     docker:
-      - image: cimg/python:3.10.0
+      - image: circleci/python:2.7 #cimg/python:3.10.0
     working_directory: ~/repo
     steps:
       - checkout
