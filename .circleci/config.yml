@@ -11,12 +11,16 @@ jobs:
     steps:
       - checkout
       #- sonarcloud/scan
-      - run:
-          name: Install TruffleHog
-          command: sudo python3 -m pip install trufflehog
-      - run: 
-          name: Execure TruffleHog Scan
-          command: trufflehog --max_depth 1 ~/repo
+      -run:
+        command: |
+          # Set sudo to work whether logged in as root user or non-root user
+          if [[ $EUID == 0 ]]; then export SUDO=""; else export SUDO="sudo"; fi
+          if [[ $(command -v pip) == "" ]]; then
+            echo "The truffleHog project requires pip/python to install. Please consider moving this task to a Python image."
+            exit 1
+          fi
+          $SUDO pip install truffleHog
+        name: Install truffleHog
 
 workflows:
   scan-secrets:
