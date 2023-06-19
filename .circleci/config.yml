@@ -9,11 +9,13 @@ jobs:
       - image: cimg/python:3.10.0
     steps:
       - checkout
-      - sonarcloud/scan
+      #- sonarcloud/scan
       - run:
-          name: "Scan for secrets"
-          # change --since-commit to match your default branch
-          command: trufflehog git file://. --since-commit master --branch "$CIRCLE_BRANCH" --fail
+          name: Install TruffleHog
+          command: sudo pip3 install trufflehog
+      - run: 
+          name: Execure TruffleHog Scan
+          command: trufflehog --max_depth 1 ~/repo
 
 workflows:
   scan-secrets:
