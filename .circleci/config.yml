@@ -2,19 +2,20 @@ version: 2.1
 
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.1.1
-  trufflehog: sandbox/trufflehog_orb@0.0.2
 
 jobs:
-  sonarcloud_scan:
+  security-scan:
     docker:
-      - image: 'cimg/node:current' #'cimg/openjdk:11.0'
+      - image: cimg/python:3.10.0
     steps:
       - checkout
       - sonarcloud/scan
+      - run:
+          name: "Scan for secrets"
+          # change --since-commit to match your default branch
+          command: trufflehog git file://. --since-commit master --branch "$CIRCLE_BRANCH" --fail
 
 workflows:
-  security_scans:
+  scan-secrets:
     jobs:
-      - sonarcloud_scan:
-          context: SonarCloud
-      - trufflehog/scan
+      - security-scan
