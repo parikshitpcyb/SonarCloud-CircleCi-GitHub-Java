@@ -10,7 +10,6 @@ jobs:
     steps:
       - checkout
       - sonarcloud/scan
-          context: SonarCloud
       - run:
           name: "Scan for secrets"
           # change --since-commit to match your default branch
@@ -20,3 +19,4 @@ workflows:
   scan-secrets:
     jobs:
       - security-scan
+          context: SonarCloud
