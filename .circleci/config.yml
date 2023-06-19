@@ -18,5 +18,5 @@ jobs:
 workflows:
   scan-secrets:
     jobs:
-      - security-scan
+      - security-scan:
           context: SonarCloud
