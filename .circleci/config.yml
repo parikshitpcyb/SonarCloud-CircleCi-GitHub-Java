@@ -1,18 +1,22 @@
 version: 2.1
 
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.1.1
+
 jobs:
-  build:
+  security-scan:
     docker:
-      - image: 'circleci/openjdk:11-jdk'
+      - image: cimg/python:3.10.0
     steps:
       - checkout
+      - sonarcloud/scan
       - run:
-          name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar -Dsonar.projectKey=parikshitpcyb_SonarCloud-CircleCi-GitHub-Java
+          name: "Scan for secrets"
+          # change --since-commit to match your default branch
+          command: trufflehog git file://. --since-commit master --branch "$CIRCLE_BRANCH" --fail
 
 workflows:
-  main:
+  scan-secrets:
     jobs:
-      - build:
+      - security-scan:
           context: SonarCloud
-          #Test if these get through

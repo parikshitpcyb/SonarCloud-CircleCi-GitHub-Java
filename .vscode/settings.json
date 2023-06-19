@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "parikshitpcyb-parikshitp",
+        "projectKey": "parikshitpcyb_SonarCloud-CircleCi-GitHub-Java"
+    }
+}
